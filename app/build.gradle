@@ -1,0 +1,62 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+}
+
+android {
+    namespace 'com.nestkeep.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.nestkeep.app"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // Required for Robolectric
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+
+    implementation "androidx.biometric:biometric:1.1.0"
+    implementation "at.favre.lib:bcrypt:0.10.2"
+    implementation "androidx.work:work-runtime:2.9.0"
+
+    // Unit testing
+    testImplementation libs.junit
+    testImplementation "org.robolectric:robolectric:4.12.1"
+    testImplementation "org.mockito:mockito-core:5.11.0"
+    testImplementation "androidx.test:core:1.5.0"
+    testImplementation "androidx.work:work-testing:2.9.0"
+
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}
